@@ -1,3 +1,519 @@
-const SUPABASE_URL = "https://uyfrqnyvbitlechkqkdd.supabase.co";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Group Directory</title>
+    <style>
+        :root {
+            --primary: #25d366;
+            --primary-dark: #128c7e;
+            --light: #f0f2f5;
+            --dark: #111b21;
+            --white: #ffffff;
+        }
 
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+        }
+
+        header {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        nav button {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        .section {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            margin-top: 0;
+        }
+
+        form input, form textarea, form select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .group-card {
+            border-bottom: 1px solid #ddd;
+            padding: 1rem 0;
+        }
+
+        .group-card:last-child {
+            border-bottom: none;
+        }
+
+        .join-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>WhatsApp Group Directory</h1>
+    <nav>
+        <button onclick="document.getElementById('find-section').scrollIntoView()">Find Your Group</button>
+        <button onclick="document.getElementById('add-section').scrollIntoView()">Add Your Group</button>
+    </nav>
+</header>
+
+<main>
+    <div id="find-section" class="section">
+        <h2>Find Your Group</h2>
+        <div id="groups-list">
+            <p>No groups published yet. Add a group to get started!</p>
+        </div>
+    </div>
+
+    <div id="add-section" class="section">
+        <h2>Add Your Group</h2>
+        <form id="group-form">
+            <input type="text" id="group-name" placeholder="Group Name" required>
+            <input type="url" id="group-link" placeholder="WhatsApp Group Link (https://chat.whatsapp.com/...)" required>
+            <textarea id="group-description" placeholder="Group Description (Optional)" rows="3"></textarea>
+            <select id="group-category">
+                <option value="General">General</option>
+                <option value="Tech">Tech</option>
+                <option value="Study">Study</option>
+                <option value="Entertainment">Entertainment</option>
+            </select>
+            <button type="submit">Add Group</button>
+        </form>
+    </div>
+</main>
+
+<script>
+    const groupForm = document.getElementById('group-form');
+    const groupsList = document.getElementById('groups-list');
+    let hasGroups = false;
+
+    groupForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('group-name').value;
+        const link = document.getElementById('group-link').value;
+        const description = document.getElementById('group-description').value;
+        const category = document.getElementById('group-category').value;
+
+        if (!hasGroups) {
+            groupsList.innerHTML = '';
+            hasGroups = true;
+        }
+
+        const groupCard = document.createElement('div');
+        groupCard.className = 'group-card';
+        groupCard.innerHTML = `
+            <h3>${name}</h3>
+            <p><strong>Category:</strong> ${category}</p>
+            <p>${description}</p>
+            <a href="${link}" class="join-btn" target="_blank">Join</a>
+        `;
+
+        groupsList.appendChild(groupCard);
+        groupForm.reset();
+        alert('Group published successfully!');
+    });
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Group Directory</title>
+    <style>
+        :root {
+            --primary: #25d366;
+            --primary-dark: #128c7e;
+            --light: #f0f2f5;
+            --dark: #111b21;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+        }
+
+        header {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        nav button {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        .section {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            margin-top: 0;
+        }
+
+        form input, form textarea, form select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .group-card {
+            border-bottom: 1px solid #ddd;
+            padding: 1rem 0;
+        }
+
+        .group-card:last-child {
+            border-bottom: none;
+        }
+
+        .join-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>WhatsApp Group Directory</h1>
+    <nav>
+        <button onclick="document.getElementById('find-section').scrollIntoView()">Find Your Group</button>
+        <button onclick="document.getElementById('add-section').scrollIntoView()">Add Your Group</button>
+    </nav>
+</header>
+
+<main>
+    <div id="find-section" class="section">
+        <h2>Find Your Group</h2>
+        <div id="groups-list">
+            <p>No groups published yet. Add a group to get started!</p>
+        </div>
+    </div>
+
+    <div id="add-section" class="section">
+        <h2>Add Your Group</h2>
+        <form id="group-form">
+            <input type="text" id="group-name" placeholder="Group Name" required>
+            <input type="url" id="group-link" placeholder="WhatsApp Group Link (https://chat.whatsapp.com/...)" required>
+            <textarea id="group-description" placeholder="Group Description (Optional)" rows="3"></textarea>
+            <select id="group-category">
+                <option value="General">General</option>
+                <option value="Tech">Tech</option>
+                <option value="Study">Study</option>
+                <option value="Entertainment">Entertainment</option>
+            </select>
+            <button type="submit">Add Group</button>
+        </form>
+    </div>
+</main>
+
+<script>
+    const groupForm = document.getElementById('group-form');
+    const groupsList = document.getElementById('groups-list');
+    let hasGroups = false;
+
+    groupForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('group-name').value;
+        const link = document.getElementById('group-link').value;
+        const description = document.getElementById('group-description').value;
+        const category = document.getElementById('group-category').<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Group Directory</title>
+    <style>
+        :root {
+            --primary: #25d366;
+            --primary-dark: #128c7e;
+            --light: #f0f2f5;
+            --dark: #111b21;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+        }
+
+        header {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        nav button {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        .section {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            margin-top: 0;
+        }
+
+        form input, form textarea, form select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .group-card {
+            border-bottom: 1px solid #ddd;
+            padding: 1rem 0;
+        }
+
+        .group-card:last-child {
+            border-bottom: none;
+        }
+
+        .join-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>WhatsApp Group Directory</h1>
+    <nav>
+        <button onclick="document.getElementById('find-section').scrollIntoView()">Find Your Group</button>
+        <button onclick="document.getElementById('add-section').scrollIntoView()">Add Your Group</button>
+    </nav>
+</header>
+
+<main>
+    <div id="find-section" class="section">
+        <h2>Find Your Group</h2>
+        <div id="groups-list">
+            <p>No groups published yet. Add a group to get started!</p>
+        </div>
+    </div>
+
+    <div id="add-section" class="section">
+        <h2>Add Your Group</h2>
+        <form id="group-form">
+            <input type="text" id="group-name" placeholder="Group Name" required>
+            <input type="url" id="group-link" placeholder="WhatsApp Group Link (https://chat.whatsapp.com/...)" required>
+            <textarea id="group-description" placeholder="Group Description (Optional)" rows="3"></textarea>
+            <select id="group-category">
+                <option value="General">General</option>
+                <option value="Tech">Tech</option>
+                <option value="Study">Study</option>
+                <option value="Entertainment">Entertainment</option>
+            </select>
+            <button type="submit">Add Group</button>
+        </form>
+    </div>
+</main>
+
+<script>
+const SUPABASE_URL = "https://uyfrqnyvbitlechkqkdd.supabase.co";
 const SUPABASE_KEY = "sb_publishable_tt6C2Y...";
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  const groupForm = document.getElementById('group-form');
+    const groupsList = document.getElementById('groups-list');
+    let hasGroups = false;
+
+    groupForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('group-name').value;
+        const link = document.getElementById('group-link').value;
+        const description = document.getElementById('group-description').value;
+        const category = document.getElementById('group-category').value;
+
+        if (!hasGroups) {
+            groupsList.innerHTML = '';
+            hasGroups = true;
+        }
+
+        const groupCard = document.createElement('div');
+        groupCard.className = 'group-card';
+        groupCard.innerHTML = `
+            <h3>${name}</h3>
+            <p><strong>Category:</strong> ${category}</p>
+            <p>${description}</p>
+            <a href="${link}" class="join-btn" target="_blank">Join</a>
+        `;
+
+        groupsList.appendChild(groupCard);
+        groupForm.reset();
+        alert('Group published successfully!');
+    });
+</script>
+
+</body>
+</html>
+value;
+
+        if (!hasGroups) {
+            groupsList.innerHTML = '';
+            hasGroups = true;
+        }
+
+        const groupCard = document.createElement('div');
+        groupCard.className = 'group-card';
+        groupCard.innerHTML = `
+            <h3>${name}</h3>
+            <p><strong>Category:</strong> ${category}</p>
+            <p>${description}</p>
+            <a href="${link}" class="join-btn" target="_blank">Join</a>
+        `;
+
+        groupsList.appendChild(groupCard);
+        groupForm.reset();
+        alert('Group published successfully!');
+    });
+</script>
+
+</body>
+</html>
